@@ -1,0 +1,2 @@
+# NiconiCommonsVecSearch
+ニコニ・コモンズで配信されているBGMをベクトル化して類似度検索ができるサービス
