@@ -7,12 +7,12 @@ healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
+startCommand = "uvicorn main:app --host 0.0.0.0 --port $PORT"
 
 [env]
 PORT = { default = "8000" }
 ENVIRONMENT = { default = "production" }
-QDRANT_URL = { required = true }
-QDRANT_API_KEY = { required = true }
+# CLAP model will be downloaded automatically during first run
 
 [build.env]
 PYTHON_VERSION = "3.11"
