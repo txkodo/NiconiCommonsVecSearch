@@ -31,13 +31,12 @@
 
 6. **プルリクエストを作成**
    ```bash
-   gh pr create --title "タイトル" --body "説明"
-   ```
+   gh pr create --title "タイトル" --body "説明
 
-7. **対応したissueを閉じる**
-   ```bash
-   gh issue close {issue番号} --comment "完了コメント"
+   Closes #{issue番号}"
    ```
+   - PR本文に `Closes #{issue番号}` を記載すると、マージ時に自動でissueが閉じられる
+   - 他のキーワード: `Fixes`, `Resolves`, `Closes`
 
 ## プロジェクト固有の情報
 
