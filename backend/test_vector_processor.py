@@ -4,9 +4,13 @@ vector_processor.py のテストファイル
 
 import pytest
 import numpy as np
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, MagicMock
 import sys
 import os
+
+# laion_clapをモック化してからインポート
+sys.modules['laion_clap'] = MagicMock()
+sys.modules['torch'] = MagicMock()
 
 # テスト対象モジュールのインポート
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))

@@ -36,6 +36,7 @@ class VectorProcessor:
         """CLAPモデルを初期化・ロード"""
         try:
             logger.info("Initializing CLAP model...")
+            logger.info("⚠️  First-time model download may take 1-2 minutes...")
             
             # CLAPモデルの初期化
             self.model = laion_clap.CLAP_Module(
@@ -44,13 +45,14 @@ class VectorProcessor:
             )
             
             # 事前訓練済みモデルのロード
+            logger.info("Loading pre-trained checkpoint...")
             self.model.load_ckpt()  # デフォルトのcheckpointをロード
             self.model.eval()  # 評価モードに設定
             
-            logger.info("CLAP model initialized successfully")
+            logger.info("✅ CLAP model initialized successfully")
             
         except Exception as e:
-            logger.error(f"Failed to initialize CLAP model: {e}")
+            logger.error(f"❌ Failed to initialize CLAP model: {e}")
             raise
     
     def preprocess_text(self, text: str) -> str:

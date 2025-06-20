@@ -57,19 +57,29 @@ class HealthResponse(BaseModel):
 async def lifespan(app: FastAPI):
     """アプリケーションライフサイクル管理"""
     # 起動時処理
-    logger.info("Starting NiconiCommonsVecSearch Backend API...")
+    logger.info("🚀 Starting NiconiCommonsVecSearch Backend API...")
     
-    # CLAPモデルの事前初期化（オプション）
+    # CLAPモデルの事前初期化でコールドスタート軽減
     try:
+        logger.info("🔥 Pre-warming CLAP model to reduce cold start latency...")
+        start_time = time.time()
+        
         vector_processor = get_vector_processor()
-        logger.info("Vector processor initialized successfully")
+        # 軽量なテストでモデルウォームアップ
+        test_result = vector_processor.vectorize_keyword("warmup test")
+        
+        warmup_time = time.time() - start_time
+        logger.info(f"✅ Model pre-warmed successfully in {warmup_time:.2f}s")
+        logger.info(f"   Ready to serve requests with ~{test_result['dimension']}D vectors")
+        
     except Exception as e:
-        logger.warning(f"Failed to pre-initialize vector processor: {e}")
+        logger.warning(f"⚠️  Model pre-warming failed: {e}")
+        logger.warning("   First API request will experience cold start delay")
     
     yield
     
     # 終了時処理
-    logger.info("Shutting down NiconiCommonsVecSearch Backend API...")
+    logger.info("🛑 Shutting down NiconiCommonsVecSearch Backend API...")
 
 
 # FastAPIアプリケーション作成
